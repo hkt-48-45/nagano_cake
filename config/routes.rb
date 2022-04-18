@@ -11,12 +11,13 @@ Rails.application.routes.draw do
 
   #admin
   namespace :admin do
+    get "/top" => "orders#top"
     resources :items
-    resources :genres, only: [:index, :create, :edit, :update]
+
   end
 
   #public
   root :to => "public/homes#top"
-  get 'homes/about'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
