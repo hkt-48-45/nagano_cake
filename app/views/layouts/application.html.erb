@@ -14,20 +14,30 @@
 
   <body>
     <body>
-  <header>
-    <% if customer_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
+   <header class="header">
+      <% if request.fullpath.include? "admin"  %>
+        <%= render 'layouts/admin_header' %>
+      <% else%>
+        <%= render 'layouts/customers_header' %>
+      <% end %>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+<!-- footer デザイン分岐 -->
+    <% if request.fullpath.include? "admin"  %>
+      <footer class="footer text-white bg-dark">
+    <% else%>
+      <footer class="footer text-white", style="background-color: #432c28;">
     <% end %>
-  </header>
-    <%= yield %>
+
+      <div class="container text-center mt-3">
+        <p>© 2022 関東圏blacks inc.</p>
+      </div>
+    </footer>
+
+
   </body>
 </html>
