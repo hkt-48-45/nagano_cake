@@ -11,16 +11,15 @@ Rails.application.routes.draw do
 
   #admin
   namespace :admin do
-    get "/top" => "orders#top"
     resources :items
     resources :orders, only: [:show, :update]
+    resources :gernres, only: [:indec, :create, :edit, :update]
+    get "/top" => "orders#top"
   end
 
   #public
   root :to => "public/homes#top"
-  namespace :public do
-    get 'homes/about'
-  
-  end
+  get 'homes/about' => "public/homes#about"
+  get 'homes/top' => "public/homes#top"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
