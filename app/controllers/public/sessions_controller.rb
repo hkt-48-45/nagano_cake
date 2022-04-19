@@ -4,11 +4,11 @@ class Public::SessionsController < Devise::SessionsController
 
 
   def after_sign_in_path_for(resource)
-    homes_about_path
+    customer_path(resource)
   end
 
   def after_sign_out_path_for(resource)
-    homes_about_path
+    public_homes_about_path
   end
 
   # GET /resource/sign_in
