@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   #admin
   namespace :admin do
-    resources :items
+    resources :items, only: [:new, :create, :index, :show, :edit, :update]
     resources :orders, only: [:show, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     get "/top" => "orders#top"
