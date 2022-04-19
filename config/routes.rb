@@ -11,10 +11,10 @@ Rails.application.routes.draw do
 
   #admin
   namespace :admin do
-    resources :items
+    resources :items, only: [:new, :create, :index, :show, :edit, :update]
     resources :orders, only: [:show, :update]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :customers
+    resources :customers, only: [:index, :show, :edit, :update]
     get "/top" => "orders#top"
   end
 
@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get 'homes/about' => "public/homes#about"
   get 'homes/top' => "public/homes#top"
   resources :customers
-  get "customers/:id/withdraw_confirm" => "customers#withdraw_confirm", as: "withdraw_confirm"
-  path "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
+  #get "customers/:id/withdraw_confirm" => "customers#withdraw_confirm", as: "withdraw_confirm"
+  #path "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
