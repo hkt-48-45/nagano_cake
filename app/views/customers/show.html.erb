@@ -1,0 +1,28 @@
+<h2>会員情報</h2>
+
+<table class='table'>
+  <tr>
+	  <th>名前</th>
+	  <th><%= @customer.last_name %><%= @customer.first_name %></th>
+  </tr>
+  <tr>
+	  <th>メールアドレス</th>
+	  <th><%= @customer.email %></th>
+  </tr>
+  <tr>
+	  <th>郵便番号</th>
+	  <th><%= @customer.post_number %></th>
+  </tr>
+  <tr>
+	  <th>住所</th>
+	  <th><%= @customer.address %></th>
+  </tr>
+  <tr>
+	  <th>電話番号</th>
+	  <th><%= @customer.telephone_number %></th>
+  </tr>
+
+</table>
+  <%= link_to "編集する", class: "btn btn-outline-secondary btn-block public_customers_edit" %>
+  <!--注文履歴一覧リンク-->
+  <!--配送先一覧リンク-->
