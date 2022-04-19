@@ -4,7 +4,6 @@ class Public::SessionsController < Devise::SessionsController
 
 
   def after_sign_in_path_for(resource)
-    # public_homes_about_path
     customer_path(resource)
   end
 

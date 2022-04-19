@@ -12,41 +12,18 @@ Rails.application.routes.draw do
   #admin
   namespace :admin do
     resources :items
+    resources :orders, only: [:show, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :customers
+    get "/top" => "orders#top"
   end
 
   #public
   root :to => "public/homes#top"
-  namespace :public do
-    get 'homes/about'
-
-  end
+  get 'homes/about' => "public/homes#about"
+  get 'homes/top' => "public/homes#top"
+  resources :customers
+  get "customers/:id/withdraw_confirm" => "customers#withdraw_confirm", as: "withdraw_confirm"
+  path "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-resources:customers
-# get "public/customers/edit" => "public/customers#edit"
-# get "public/customers" => "public/customers#show"
-# patch "public/customers" => "public/customers#update"
-# 退会確認画面
-get 'customers/:id/withdraw_confirm' => 'customers#withdraw_confirm', as: 'withdraw_confirm'
-# 論理削除用のルーティング
-patch 'customers/:id/withdraw' => "customers#withdraw", as: 'withdraw'
 end
