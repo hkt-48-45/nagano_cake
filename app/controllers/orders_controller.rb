@@ -6,14 +6,20 @@ class OrdersController < ApplicationController
   end
 
   def new
-  end
-
-  def log
+    @address = current_customer.address
+    @address = Address.new
+    @order = Order.new
   end
 
   def create
   end
+  
+  def edit
+  end
+  
+  def edit
+  end
 
-  def complete
+  def destroy
   end
 end
