@@ -1,2 +1,19 @@
-<h1>Addresses#edit</h1>
-<p>Find me in app/views/addresses/edit.html.erb</p>
+<h1>住所編集フォーム</h1>
+<%#= form_with(model: @address, method: :post, :url => {:controller => "addresses"}) do |f| %>
+<%= form_with model:@address,url:customer_address_path(current_customer),local:true do |f| %>
+  <div class="form-group">
+    <%= f.label :"宛先" %>
+    <%= f.text_field :name, class: 'form-control address_title' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :"郵便番号（ハイフンなし）" %>
+    <%= f.text_area :post_number, class: 'form-control address_body' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :"住所" %>
+    <%= f.text_field :address %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "変更保存",class: 'btn btn-success' %>
+  </div>
+<% end %>

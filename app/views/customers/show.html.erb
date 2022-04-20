@@ -24,5 +24,6 @@
 
 </table>
   <%= link_to "編集する", edit_customer_path, class: "btn btn-outline-secondary btn-block public_customers_edit" %>
+
   <!--注文履歴一覧リンク-->
-  <!--配送先一覧リンク-->
+  <%= link_to "-配送先一覧", customer_addresses_path(@customer),class: "btn btn-outline-secondary btn-block" %>
