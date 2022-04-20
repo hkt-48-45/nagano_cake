@@ -8,7 +8,7 @@ class Public::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    public_homes_about_path
+    homes_about_path
   end
 
   # GET /resource/sign_in
