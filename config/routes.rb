@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   root :to => "public/homes#top"
   get 'homes/about' => "public/homes#about"
   get 'homes/top' => "public/homes#top"
+  delete "cart_items/destroy_all" => "cart_items#destroy_all"
   resources :customers
+  resources :items, only: [:index, :show]
+  resources :cart_items, only: [:index, :create, :update, :destroy]
   #get "customers/:id/withdraw_confirm" => "customers#withdraw_confirm", as: "withdraw_confirm"
   #path "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
 
