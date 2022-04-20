@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2022_04_20_012732) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "customer_id"
   end
 
   create_table "admins", force: :cascade do |t|
