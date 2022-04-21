@@ -6,23 +6,29 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @customer = current_customer
     @order = Order.new
-    @order.customer_id = current_customer.id
+
+
     @addresses = Address.where(customer_id: current_customer.id)
-    # @order_details = Cart.where(customer_id: @customer.id)
+  end
+
+  def confirm
+    @order.customer_id = current_customer.id
+    @order.shipping_cost = 800
+    @cart_items = current_customer.cart_items.all
+    @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
+    @order.total_payment = @total_price + @order.shipping_cost
+
   end
 
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    if @order.save
-      redirect_to new_customer_order_path(current_customer), notice: "You have created order successfully."
-    else
-      @customer = current_customer
-      @addresses = Order.where(customer_id: current_customer.id)
-      render 'new'
-    end
+    @order.save
+    @cart_items = current_customer.cart_items.all
+    @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
+    @order.shipping_cost = 800
+    render 'confirm'
 
   end
 
@@ -36,6 +42,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:post_number, :order, :name, :total_payment, :shipping_cost, :payment_method, :status, :customer_id)
+    params.require(:order).permit(:post_number, :address, :name, :payment_method, :customer_id, :status)
   end
 end
