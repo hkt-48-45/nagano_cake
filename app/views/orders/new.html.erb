@@ -1,2 +1,34 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<h1>注文画面</h1>
+<h1>1 お支払方法</h1>
+
+<%= form_with model: @order do |f| %>
+      <%= f.radio_button :payment_method, :クレジットカード %>
+      <%= f.label :payment_method, "クレジットカード", {value: :クレジットカード, style: "display: inline-block;"} %>
+      <%= f.radio_button :payment_method, :銀行口座振込 %>
+      <%= f.label :payment_method, "銀行口座振込", {value: :銀行口座振込, style: "display: inline-block;"} %>
+
+     <h1>2 お届け先選択</h1>
+     <p></p>
+     <p>自分の住所を選択</p><br>
+     <%= f.radio_button :address, :自分の住所 %>
+     <!--value:に@customer.addressが入らない-->
+     <%= f.label :address, @customer.address, {value: :自分の住所, style: "display: inline-block;"} %><br>
+     <% if @addresses != [] %>
+       <p>その他の住所から選択</p><br>
+       <%#= f.collection_select(:address_id, @addresses, :id, :order_address) %>
+       <% @addresses.each do |address| %>
+         <%= f.radio_button :address, :配達先 %>
+          <%= f.label :address, address.address, {value: :配達先 , style: "display: inline-block;"} %><br>
+
+       <% end %>
+     <% end %>
+
+       <h1>新しい住所を選択</h1>
+       <%= f.radio_button :address, :新しい住所を選択 %>
+       <%= f.label :address, @customer.address, {value: :自分の住所, style: "display: inline-block;"} %><br>
+
+
+     <%#= f.select :address, [["自分の住所", "自分の住所"], ["配達先", "配達先"], ["新規住所入力", "新規住所入力"]], include_blank: "選択して下さい" %>
+
+     <%#= f.submit '送信'%>
+<% end %>

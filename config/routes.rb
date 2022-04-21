@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   patch "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
   resources :customers do
     resources :addresses
+    resources :orders
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
