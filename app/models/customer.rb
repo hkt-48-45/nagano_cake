@@ -7,7 +7,9 @@ class Customer < ApplicationRecord
   # validates :first_name, length: { minimum: 1, maximum: 20 }
   # validates :last_name_kana, length: { minimum: 1, maximum: 20 }
   # validates :email, length: { minimum: 1, maximum: 20 }
+  has_many :cart_items, dependent: :destroy
   has_many :addresses, dependent: :destroy
+
 
  # 退会済ユーザーをブロック
   def active_for_authentication?
