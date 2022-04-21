@@ -8,6 +8,7 @@
   <% end %>
   <%= item.name %><br>
   ¥<%= item.price %><br>
+<% end %><%= render "items/genre_search", genres: @genres %>
 <% end %>
 
 <%= paginate @items %>
