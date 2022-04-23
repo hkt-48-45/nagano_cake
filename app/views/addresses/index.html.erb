@@ -1,48 +1,58 @@
 <% if @addresses.present? %>
+<div class="container my-5">
+  <div class="row">
 <h1>住所一覧</h1>
+  </div>
 
-<table class='table table-hover table-inverse'>
-  <thead>
-    <tr>
-      <th>住所</th>
-      <th>宛先</th>
-      <th>郵便番号</th>
-      <th>住所詳細</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @addresses.each do |address| %>
+<div class="row mt-3">
+  <div class="offset-sm-1 col-sm-10">
+ 
+  <table class='table table-hover table-inverse'>
+    <thead>
       <tr>
-        <td>住所</td>
-        <td><%= address.name %></td>
-        <td><%= address.post_number %></td>
-        <td><%= address.address %></td>
-        <td><%= link_to "編集", edit_customer_address_path(current_customer, address),class: "btn btn-outline-secondary btn-block" %></td>
-        <td><%= link_to "削除", customer_address_path(current_customer, address), method: :delete, class: "btn btn-outline-secondary btn-block" %></td>
+        <th>住所</th>
+        <th>宛先</th>
+        <th>郵便番号</th>
+        <th>住所詳細</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<% end %>
+    </thead>
+    <tbody>
+      <% @addresses.each do |address| %>
+        <tr>
+          <td>住所</td>
+          <td><%= address.name %></td>
+          <td><%= address.post_number %></td>
+          <td><%= address.address %></td>
+          <td><%= link_to "編集", edit_customer_address_path(current_customer, address),class: "btn btn-outline-secondary btn-block" %></td>
+          <td><%= link_to "削除", customer_address_path(current_customer, address), method: :delete, class: "btn btn-outline-secondary btn-block" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+  <% end %>
 <br>
-
+<div class="row">
 <h1>住所登録フォーム</h1>
+</div>
 <%= form_with model:@address,url:customer_addresses_path(current_customer),local:true do |f| %>
-  <div class="form-group">
+  <div class="form-group col-md-7">
     <%= f.label :"宛先" %>
     <%= f.text_field :name, class: 'form-control address_title' %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-7">
     <%= f.label :"郵便番号（ハイフンなし）" %>
     <%= f.text_area :post_number, class: 'form-control address_body' %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-7">
     <%= f.label :"住所" %>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, class: 'form-control address_body' %>
   </div>
-  <div class="form-group">
+  <div class="form-group ">
     <%= f.submit "新規登録", class: 'btn btn-success' %>
+  </div>
   </div>
 <% end %>
 
