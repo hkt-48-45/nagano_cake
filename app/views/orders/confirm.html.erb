@@ -1,2 +1,33 @@
-<h1>Orders#comfirm</h1>
-<p>Find me in app/views/orders/complete.html.erb</p>
+<h1>注文情報確認</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+      <tr>
+        <td>
+          <%= image_tag cart_item.item.get_image(50, 50) %>
+          <%= cart_item.item.name %>
+        </td>
+        <td><%= (cart_item.item.price * 1.1).floor %></td>
+        <td>
+            <%= cart_item.amount %>
+        </td>
+        <td><%= (cart_item.item.price * 1.1).floor * (cart_item.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>送料 <%= @order.shipping_cost %></p>
+<p>商品合計 <%= @total_price.floor %></p>
+<p>請求額合計 <%= @total_price.floor + @order.shipping_cost %></p>
+
+<p><%= link_to "注文確定する",  order_complete_path %></p>
