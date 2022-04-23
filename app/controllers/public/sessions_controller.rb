@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
-  
-  
-   def after_sign_in_path_for(resource)
-    public_homes_about_path
+
+
+  def after_sign_in_path_for(resource)
+    customer_path(current_customer)
   end
-  
+
   def after_sign_out_path_for(resource)
-    public_homes_about_path
+    homes_top_path
   end
-  
+
   # GET /resource/sign_in
   # def new
   #   super
@@ -34,10 +34,10 @@ class Public::SessionsController < Devise::SessionsController
       if @customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == false)
         redirect_to new_customer_registration
       else
-        
+
       end
   end
-  
+
 
 
   # If you have extra params to permit, append them to the sanitizer.

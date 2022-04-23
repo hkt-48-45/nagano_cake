@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+    </div>
+    <div class="col-md-auto">
+     <h1>本当に退会しますか？</h1><br>
+     <h2>退会する場合は、『退会する』をクリックしてください。</h2>
+    </div>
+    <div class="col col-lg-2">
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-md-auto">
+      <%= link_to '退会しない', customer_path(current_customer) %>
+    <%= link_to "退会する", withdraw_path, method: :patch, data: { confilm: "本当に退会しますか？" } %>    </div>
+    <div class="col col-lg-2">
+    </div>
+  </div>
+</div>

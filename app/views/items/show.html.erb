@@ -1,2 +1,14 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<%= render "genre_search", genres: @genres %>
+
+<%= image_tag @item.get_image(200, 200) %><br>
+<%= @item.name %><br>
+<%= @item.description %><br>
+¥ <%= (@item.price * 1.1).floor %> (税込)<br>
+
+<%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
+
+  <%= f.select :amount, *[1..9], {prompt: "個数選択"} %>
+
+  <%= f.submit "カートに入れる" %>
+<% end %>
