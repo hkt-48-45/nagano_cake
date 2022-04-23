@@ -24,6 +24,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
+    @order.status = 0
+    
     @order.save
     @cart_items = current_customer.cart_items.all
     @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
