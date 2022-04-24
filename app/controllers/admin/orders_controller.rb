@@ -8,6 +8,8 @@ class Admin::OrdersController < ApplicationController
     @order_details = @order.order_details
     @cart_items = current_customer.cart_items
     @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
+    @total_payment = @total_price + @order.shipping_cost
+    
   end
 
   def update

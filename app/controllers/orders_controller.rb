@@ -43,6 +43,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.status = 0
+    
     @order.save
     current_customer.cart_items.all.destroy_all
     flash[:notice] = "ご注文が確定しました。"
