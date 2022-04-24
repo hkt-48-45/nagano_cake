@@ -52,6 +52,9 @@ class OrdersController < ApplicationController
   def create
     cart_items = current_customer.cart_items.all
     @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    @order.status = 0
+    
     @order.save
     cart_items.each do |cart_item|
       order_detail = OrderDetail.new
@@ -65,6 +68,7 @@ class OrdersController < ApplicationController
     flash[:notice] = "ご注文が確定しました。"
     render 'complete'
   end
+
 
   def log
   end

@@ -7,11 +7,12 @@ class Admin::OrderDetailsController < ApplicationController
 		  else
 		     render "show"
 		  end
-  end
-  
-  private
-  def order_detail_params
-		  params.require(:order_detail).permit(:making_status)
 	end
-
+	def create
+			
+  end
+  private
+	def order_detail_params
+		params.require(:order_detail).permit(:making_status)
+	end
 end
