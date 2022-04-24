@@ -31,23 +31,8 @@ class OrdersController < ApplicationController
       @order.address = @address.address
       @order.name = @address.name
     else
-
     end
-
-    # elsif address "record_address"
-      # record = Address.find(params[:order][:address_id])
-      # @order.post_number = record.post_number
-      # @order.address     = record.address
-      # @order.name        = record.name
-    # else
-    # end
   end
-
-
-
-
-
-    # end
 
   def create
     cart_items = current_customer.cart_items.all
