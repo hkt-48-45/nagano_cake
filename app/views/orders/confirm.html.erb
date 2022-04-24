@@ -30,6 +30,9 @@
   <p>送料 <%= @order.shipping_cost %></p>
   <p>商品合計 <%= @total_price.floor %></p>
   <p>請求額合計 <%= @total_price.floor + @order.shipping_cost %></p>
+  <p>支払方法 <%= @order.payment_method_i18n %></p>
+  <p>お届け先</p>
+  <%= @order.order_display %>
   <%= form_with model: @order, url:{controller:"orders",action:"create"} do |f| %>
     <%= f.hidden_field :post_number %>
     <%= f.hidden_field :address %>

@@ -19,13 +19,20 @@ class OrdersController < ApplicationController
     @order.total_payment = @total_price + @order.shipping_cost
     # 上手く反映されない
     # @order.status = 0
-  end
 
-    # ご自身の住所、登録済住所、新しいお届け先で場合分け
-    # if @order.address == "your_address"
-      # @order.post_number = current_customer.post_number
-      # @order.address = current_customer.address
-      # @order.name = current_customer.first_name + current_customer.last_name
+    # ご自身の住所、登録済住所、新しいお届け先で場合分けs
+    if  params[:order][:address_s] == "0"
+      @order.post_number = current_customer.post_number
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
+    elsif params[:order][:address_s] == "1"
+      @address = Address.find(params[:order][:address_id])
+      @order.post_number = @address.post_number
+      @order.address = @address.address
+      @order.name = @address.name
+    else
+
+    end
 
     # elsif address "record_address"
       # record = Address.find(params[:order][:address_id])
@@ -34,17 +41,29 @@ class OrdersController < ApplicationController
       # @order.name        = record.name
     # else
     # end
+  end
+
+
 
 
 
     # end
 
   def create
+    cart_items = current_customer.cart_items.all
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.status = 0
     
     @order.save
+    cart_items.each do |cart_item|
+      order_detail = OrderDetail.new
+      order_detail.item_id = cart_item.item_id
+      order_detail.order_id = @order.id
+      order_detail.amount = cart_item.amount
+      order_detail.price = cart_item.item.price
+      order_detail.save
+    end
     current_customer.cart_items.all.destroy_all
     flash[:notice] = "ご注文が確定しました。"
     render 'complete'
