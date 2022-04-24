@@ -5,10 +5,10 @@ class Admin::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @order_details = @order.order_details
-    @cart_items = current_customer.cart_items
-    @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
-    @total_payment = @total_price + @order.shipping_cost
+    puts "————————"
+    puts @order_details.inspect
+    @order_details = @order.order_details.all
+    @total_price = @order_details.sum{|order_detail|order_detail.item.price * order_detail.amount * 1.1}
     
   end
 
@@ -21,7 +21,7 @@ class Admin::OrdersController < ApplicationController
 		   render "show"
 		end
   end
-  
+
   private
 	def order_params
 		  params.require(:order).permit(:status)

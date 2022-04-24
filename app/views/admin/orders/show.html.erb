@@ -17,7 +17,7 @@
   	        配送先
   	      </div>
   	      <div class="col-xs-8">
-  	        <%#= @order.address(@order) %>
+  	        <%= @order.address %>
   	      </div>
   	    </div>
 
@@ -26,14 +26,14 @@
   	        支払い方法
   	      </div>
   	      <div class="col-xs-8">
-  	        <%= @order.payment_method %>
+  	        <%= @order.payment_method_i18n %>
   	      </div>
   	    </div>
 
    	  <%= form_for(@order, url: admin_order_path(@order), method: :patch) do |f| %>
    	    <div class="col-xs-4">注文ステータス</div>
         	  <div class="col-xs-6">
-              <%= f.select :status, Order.statuses.keys, class: "order_status" %>
+              <%= f.select :status, Order.statuses_i18n.invert, class: "order_status" %>
             </div>
 
         	<div class="actions">
@@ -65,18 +65,18 @@
   			              <%= order_detail.item.name %>
   			            </td>
   			            <td class="text-right">
-  			              ¥<%= order_detail.quanitity %>
+  			              ¥<%= (order_detail.price * 1.1).floor %>
   			            </td>
   			            <td class="text-right">
-  			              <%= order_detail.order.total_price %>
+  			              <%= order_detail.amount %>
   			            </td>
   			            <td class="text-right">
-  			              ¥<%= order_price(order_detail) %>
+  			              ¥<%= order_detail.amount * (order_detail.price * 1.1).floor %>
   			            </td>
   			            <%= form_for(order_detail, url: admin_order_detail_path(order_detail), method: :patch) do |f| %>
   			            <td>
-  			            	<%= f.select :making_status, OrderDetail.making_statuses.keys, class: "order_status" %>
-  			            	<%= f.submit '更新'  ,class: "btn btn-warning" %>
+  			            	<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, class: "order_status" %>
+  			            	<%= f.submit '更新'  ,class: "btn btn-primary" %>
   			            </td>
   			            <% end %>
   			      	</tr>
@@ -97,7 +97,7 @@
   				</tr>
   				<tr>
   					<th class="info">請求金額合計</th>
-  					<td>¥<%= @total_payment.floor %></td>
+  					<td>¥<%= @order.total_payment %></td>
   				</tr>
   		    </table>
   	  </div>
