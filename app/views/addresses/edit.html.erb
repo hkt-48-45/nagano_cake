@@ -1,6 +1,5 @@
 <h1>住所編集フォーム</h1>
-<%#= form_with(model: @address, method: :post, :url => {:controller => "addresses"}) do |f| %>
-<%= form_with model:@address,url:customer_address_path(current_customer),local:true do |f| %>
+<%= form_with model:@address,url:address_path,local:true do |f| %>
   <div class="form-group">
     <%= f.label :"宛先" %>
     <%= f.text_field :name, class: 'form-control address_title' %>
