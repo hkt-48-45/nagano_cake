@@ -32,7 +32,7 @@
       <table class="table table-hover">
         <tr>
           <th><%= link_to "編集する", edit_customer_path, class: "btn btn-success public_customers_edit" %></th>
-          <th><%= link_to "配送先一覧", customer_addresses_path(@customer),class: "btn btn-primary" %></th>
+          <th><%= link_to "配送先一覧", addresses_path,class: "btn btn-primary" %></th>
           <th><%= link_to "注文履歴一覧", orders_path, class: "glyphicon glyphicon-folder-open btn btn-info" %></th>
         </tr>
       </thead>
@@ -42,4 +42,3 @@
  </div>
 
 
-  

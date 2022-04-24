@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
     @address.customer_id = current_customer.id
     if @address.save
-      redirect_to customer_addresses_path(current_customer), notice: "You have created address successfully."
+      redirect_to addresses_path, notice: "You have created address successfully."
     else
       @customer = current_customer
       @addresses = Address.where(customer_id: @customer.id)
@@ -27,7 +27,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.customer_id = current_customer.id
     if @address.update(address_params)
-      redirect_to customer_addresses_path(current_customer), notice: "You have updated customer successfully."
+      redirect_to addresses_path, notice: "You have updated customer successfully."
     else
       render "edit"
     end
@@ -37,7 +37,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     if @address.destroy
       flash[:notice]="Address was successfully destroyed."
-      redirect_to customer_addresses_path(current_customer)
+      redirect_to addresses_path
     end
   end
 

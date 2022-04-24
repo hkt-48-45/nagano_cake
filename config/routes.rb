@@ -32,9 +32,7 @@ Rails.application.routes.draw do
   resources :orders, except:[:update]
   get "customers/:id/withdraw_confirm" => "customers#withdraw_confirm", as: "withdraw_confirm"
   patch "customers/:id/withdraw" => "customers#withdraw",as: "withdraw"
-  resources :customers do
-    resources :addresses
-
-  end
+  resources :addresses
+  resources :customers
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
