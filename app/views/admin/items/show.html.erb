@@ -1,11 +1,14 @@
+<div class="container my-5">
+  <div class="row">
 <h4>商品詳細</h4>
+  </div>
 
 <%= image_tag @item.get_image(200, 200) %>
 
 <p>商品名 <%= @item.name %></p>
 <p>商品説明 <%= @item.description %></p>
 <p>ジャンル <%= @item.genre.name %></p>
-<p>税込み価格<br>(税抜価格) <%= (@item.price * 1.1).floor %>(<%= @item.price %>) 円</p>
+<p>税込価格(税抜価格)<%= (@item.price * 1.1).floor %>円(<%= @item.price %>円)</p>
 <p>販売ステータス
   <% if @item.sales_status %>
     販売中

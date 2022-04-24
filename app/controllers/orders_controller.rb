@@ -6,25 +6,69 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @customer = current_customer
     @order = Order.new
-    @order.customer_id = current_customer.id
     @addresses = Address.where(customer_id: current_customer.id)
-    # @order_details = Cart.where(customer_id: @customer.id)
   end
 
-  def create
+  def confirm
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    if @order.save
-      redirect_to new_customer_order_path(current_customer), notice: "You have created order successfully."
+    @cart_items = current_customer.cart_items.all
+    @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
+    @order.shipping_cost = 800
+    @order.total_payment = @total_price + @order.shipping_cost
+    # 上手く反映されない
+    # @order.status = 0
+
+    # ご自身の住所、登録済住所、新しいお届け先で場合分けs
+    if  params[:order][:address_s] == "0"
+      @order.post_number = current_customer.post_number
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
+    elsif params[:order][:address_s] == "1"
+      @address = Address.find(params[:order][:address_id])
+      @order.post_number = @address.post_number
+      @order.address = @address.address
+      @order.name = @address.name
     else
-      @customer = current_customer
-      @addresses = Order.where(customer_id: current_customer.id)
-      render 'new'
+
     end
 
+    # elsif address "record_address"
+      # record = Address.find(params[:order][:address_id])
+      # @order.post_number = record.post_number
+      # @order.address     = record.address
+      # @order.name        = record.name
+    # else
+    # end
   end
+
+
+
+
+
+    # end
+
+  def create
+    cart_items = current_customer.cart_items.all
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    @order.status = 0
+    
+    @order.save
+    cart_items.each do |cart_item|
+      order_detail = OrderDetail.new
+      order_detail.item_id = cart_item.item_id
+      order_detail.order_id = @order.id
+      order_detail.amount = cart_item.amount
+      order_detail.price = cart_item.item.price
+      order_detail.save
+    end
+    current_customer.cart_items.all.destroy_all
+    flash[:notice] = "ご注文が確定しました。"
+    render 'complete'
+  end
+
 
   def log
   end
@@ -36,6 +80,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:post_number, :order, :name, :total_payment, :shipping_cost, :payment_method, :status, :customer_id)
+    params.require(:order).permit(:post_number, :address, :name, :payment_method, :customer_id, :shipping_cost, :total_payment, :status)
   end
 end
