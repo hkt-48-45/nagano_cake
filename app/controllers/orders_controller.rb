@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
   def index
+    @orders = current_customer.orders.all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details.all
+    @total_price = @order_details.sum{|order_detail|order_detail.item.price * order_detail.amount * 1.1}
   end
 
   def new
@@ -39,7 +43,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.status = 0
-    
+
     @order.save
     cart_items.each do |cart_item|
       order_detail = OrderDetail.new
@@ -53,12 +57,6 @@ class OrdersController < ApplicationController
     flash[:notice] = "ご注文が確定しました。"
     render 'complete'
   end
-
-
-  def log
-  end
-
-
 
   def complete
   end
