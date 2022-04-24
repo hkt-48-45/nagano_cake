@@ -6,7 +6,7 @@
 
 <div class="row mt-3">
   <div class="offset-sm-1 col-sm-10">
- 
+
   <table class='table table-hover table-inverse'>
     <thead>
       <tr>
@@ -24,8 +24,8 @@
           <td><%= address.name %></td>
           <td><%= address.post_number %></td>
           <td><%= address.address %></td>
-          <td><%= link_to "編集", edit_customer_address_path(current_customer, address),class: "btn btn-outline-secondary btn-block" %></td>
-          <td><%= link_to "削除", customer_address_path(current_customer, address), method: :delete, class: "btn btn-outline-secondary btn-block" %></td>
+          <td><%= link_to "編集", edit_address_path(address),class: "btn btn-outline-secondary btn-block" %></td>
+          <td><%= link_to "削除", address_path(address), method: :delete, class: "btn btn-outline-secondary btn-block" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -37,7 +37,7 @@
 <div class="row">
 <h1>住所登録フォーム</h1>
 </div>
-<%= form_with model:@address,url:customer_addresses_path(current_customer),local:true do |f| %>
+<%= form_with model:@address,url:addresses_path,local:true do |f| %>
   <div class="form-group col-md-7">
     <%= f.label :"宛先" %>
     <%= f.text_field :name, class: 'form-control address_title' %>
