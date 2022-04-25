@@ -1,8 +1,13 @@
 class OrdersController < ApplicationController
+
   def index
+    @orders = current_customer.orders.all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details.all
+    @total_price = @order_details.sum{|order_detail|order_detail.item.price * order_detail.amount * 1.1}
   end
 
   def new
@@ -31,30 +36,15 @@ class OrdersController < ApplicationController
       @order.address = @address.address
       @order.name = @address.name
     else
-
     end
-
-    # elsif address "record_address"
-      # record = Address.find(params[:order][:address_id])
-      # @order.post_number = record.post_number
-      # @order.address     = record.address
-      # @order.name        = record.name
-    # else
-    # end
   end
-
-
-
-
-
-    # end
 
   def create
     cart_items = current_customer.cart_items.all
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.status = 0
-    
+
     @order.save
     cart_items.each do |cart_item|
       order_detail = OrderDetail.new
@@ -68,12 +58,6 @@ class OrdersController < ApplicationController
     flash[:notice] = "ご注文が確定しました。"
     render 'complete'
   end
-
-
-  def log
-  end
-
-
 
   def complete
   end

@@ -1,4 +1,6 @@
 class AddressesController < ApplicationController
+  before_action :correct_address, only: [:edit, :update]
+  before_action :authenticate_customer!
 
   def index
     @customer = current_customer
@@ -11,7 +13,7 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
     @address.customer_id = current_customer.id
     if @address.save
-      redirect_to customer_addresses_path(current_customer), notice: "You have created address successfully."
+      redirect_to addresses_path, notice: "You have created address successfully."
     else
       @customer = current_customer
       @addresses = Address.where(customer_id: @customer.id)
@@ -20,14 +22,12 @@ class AddressesController < ApplicationController
   end
 
   def edit
-    @address = Address.find(params[:id])
   end
 
   def update
-    @address = Address.find(params[:id])
     @address.customer_id = current_customer.id
     if @address.update(address_params)
-      redirect_to customer_addresses_path(current_customer), notice: "You have updated customer successfully."
+      redirect_to addresses_path, notice: "You have updated customer successfully."
     else
       render "edit"
     end
@@ -37,7 +37,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     if @address.destroy
       flash[:notice]="Address was successfully destroyed."
-      redirect_to customer_addresses_path(current_customer)
+      redirect_to addresses_path
     end
   end
 
@@ -45,4 +45,12 @@ class AddressesController < ApplicationController
   def address_params
     params.require(:address).permit(:name, :post_number, :address)
   end
+
+  def correct_address
+    @address = Address.find(params[:id])
+    if current_customer != @address.customer
+      redirect_to addresses_path
+    end
+  end
+
 end
