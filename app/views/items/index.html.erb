@@ -12,14 +12,14 @@
       <h4>商品一覧(全<%= @items.count %>件)</h4><br>
       <% @items.each do |item| %>
       <%= link_to item_path(item) do %>
-        <%= image_tag item.get_image(100, 100) %><br>
+        <%= image_tag item.get_image(400, 400) %><br>
       <% end %>
-      商品名：<%= item.name %><br>
-      価格：¥<%= item.price %><br>
+      <h4>商品名：<%= item.name %><br></4h>
+      <h4>価格：¥<%= item.price %><br></4h>
       <% end %>
     </div>
     <div class="col-4">
-      <%= render "items/genre_search", genres: @genres %>
+      <h4><%= render "items/genre_search", genres: @genres %></h4>
     </div>
 </div>
 
