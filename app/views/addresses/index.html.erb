@@ -18,9 +18,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @addresses.each do |address| %>
+      <% @addresses.each_with_index do |address, i| %>
         <tr>
-          <td>住所</td>
+          <td>住所<%= i + 1 %></td>
           <td><%= address.name %></td>
           <td><%= address.post_number %></td>
           <td><%= address.address %></td>

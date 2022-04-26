@@ -1,4 +1,7 @@
 class CartItemsController < ApplicationController
+  before_action :cart_item, only: [:update, :destroy]
+  before_action :authenticate_customer!
+
   def index
     @cart_items = current_customer.cart_items
     @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}

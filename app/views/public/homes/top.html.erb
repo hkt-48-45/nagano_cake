@@ -10,7 +10,7 @@
 			</h1>
     </div>
     <div class="col">
-      
+
     </div>
   </div>
   <div class="row">
@@ -18,10 +18,10 @@
       <h4>新着順(全<%= @items.count %>件)</h4><br>
       <% @items.each do |item| %>
       <%= link_to item_path(item) do %>
-        <%= image_tag item.get_image(100, 100) %><br>
+        <%= image_tag item.get_image(200, 200) %><br>
       <% end %>
-      商品名：<%= item.name %><br>
-      価格：¥<%= item.price %><br>
+      <h5>商品名：<%= item.name %><br></h5>
+      <h5>価格：¥<%= item.price %><br></h5>
       <% end %>
     </div>
     <div class="col-4">
