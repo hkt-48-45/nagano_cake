@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Admin.create!(
-   email: 'admin@admin',
-   password: 'testtest'
-)
+# Admin.create!(
+#   email: 'admin@admin',
+#   password: 'testtest'
+# )
 
 
 5.times do |n|
@@ -21,9 +21,10 @@ Admin.create!(
       password: "123456",
       post_number: "#{n + 1}" * 7,
       address: "東京都東京都新宿区西新宿1-1-1 レオパレス10#{n + 1}号室",
-      telephone_number: "0801234567#{n + 1}"
+      telephone_number: "080123456#{n + 1}"
     )
 end
+
 
 
 genres = ["ケーキ", "プリン", "焼き菓子", "キャンディ"]
@@ -34,10 +35,11 @@ Genre.create!(
 end
 
 
-# Item.create!(
-#     name: "チョコレートケーキ",
-#     description: "ヨーロッパ伝統の本格チョコケーキ",
-#     price: "400",
-#     sales_status: [['販売中', true], ['販売停止', false]],
-#    #  image: open("./app/assets/images/no_image.jpg")
-#  )
+ item = Item.create!(
+    name: "ショートケーキ",
+    description: "甘くて美味しい　イチゴのショートケーキ",
+    price: "400",
+    genre_id: 1,
+
+  )
+  item.image.attach(io: File.open(Rails.root.join('app/assets/images/no_image.jpg')), filename: 'default.jpg')
