@@ -1,4 +1,6 @@
 class AddressesController < ApplicationController
+  before_action :correct_address, only: [:edit, :update]
+  before_action :authenticate_customer!
 
   def index
     @customer = current_customer
@@ -20,11 +22,9 @@ class AddressesController < ApplicationController
   end
 
   def edit
-    @address = Address.find(params[:id])
   end
 
   def update
-    @address = Address.find(params[:id])
     @address.customer_id = current_customer.id
     if @address.update(address_params)
       redirect_to addresses_path, notice: "You have updated customer successfully."
@@ -45,4 +45,12 @@ class AddressesController < ApplicationController
   def address_params
     params.require(:address).permit(:name, :post_number, :address)
   end
+
+  def correct_address
+    @address = Address.find(params[:id])
+    if current_customer != @address.customer
+      redirect_to addresses_path
+    end
+  end
+
 end
