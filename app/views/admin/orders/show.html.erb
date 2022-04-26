@@ -11,7 +11,12 @@
   		    <%= @order.name %>
   		  </div>
   		</div>
-
+				<div class="col-xs-4">
+  			 購入日
+  		  </div>
+  		  <div class="col-xs-8">
+  		    <%= @order.created_at.strftime('%Y/%m/%d') %>
+  		  </div>
   	    <div class="field">
   	      <div class="col-xs-4">
   	        配送先
@@ -61,25 +66,25 @@
   	          	<% end %>
   				<% @order_details.each do |order_detail| %>
   					<tr>
-  			            <td class="text-left">
-  			              <%= order_detail.item.name %>
-  			            </td>
-  			            <td class="text-right">
-  			              ¥<%= (order_detail.price * 1.1).floor %>
-  			            </td>
-  			            <td class="text-right">
-  			              <%= order_detail.amount %>
-  			            </td>
-  			            <td class="text-right">
-  			              ¥<%= order_detail.amount * (order_detail.price * 1.1).floor %>
-  			            </td>
-  			            <%= form_for(order_detail, url: admin_order_detail_path(order_detail), method: :patch) do |f| %>
-  			            <td>
-  			            	<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, class: "order_status" %>
-  			            	<%= f.submit '更新'  ,class: "btn btn-primary" %>
-  			            </td>
-  			            <% end %>
-  			      	</tr>
+	            <td class="text-left">
+	              <%= order_detail.item.name %>
+	            </td>
+	            <td class="text-right">
+	              ¥<%= (order_detail.price * 1.1).floor %>
+	            </td>
+	            <td class="text-right">
+	              <%= order_detail.amount %>
+	            </td>
+	            <td class="text-right">
+	              ¥<%= order_detail.amount * (order_detail.price * 1.1).floor %>
+	            </td>
+	            <%= form_for(order_detail, url: admin_order_detail_path(order_detail), method: :patch) do |f| %>
+	            <td>
+	            	<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, class: "order_status" %>
+	            	<%= f.submit '更新'  ,class: "btn btn-primary" %>
+	            </td>
+	            <% end %>
+  			   </tr>
   				<% end %>
   				</tbody>
   			</table>
