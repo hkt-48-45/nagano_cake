@@ -15,7 +15,7 @@ class Admin::OrderDetailsController < ApplicationController
 		  else
 		     @order_details = @order.order_details.all
              @total_price = @order_details.sum{|order_detail|order_detail.item.price * order_detail.amount * 1.1}
-		       render "admin/orders/show"
+		       redirect_to admin_order_path(@order)
 		  end
 	end
 end
