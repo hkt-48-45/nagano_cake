@@ -1,39 +1,48 @@
-<h4>商品新規登録</h4>
-
-<%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
-
-  <div>
-    <%= f.label :商品画像 %>
-    <%= f.file_field :image, accept: "image/*" %>
+<div class="container my-5">
+  <div class="row">
+    <h4>商品新規登録</h4>
   </div>
 
-  <div>
-    <%= f.label :商品名 %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="row mt-3 flex-column align-items-center">
+    <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
 
-  <div>
-    <%= f.label :商品説明 %>
-    <%= f.text_area :description %>
-  </div>
+      <div class="form-group row">
+        <%= f.label :商品画像, class: "col-sm-4" %>
+        <%= f.file_field :image, accept: "image/*", class: "col-sm-9" %>
+      </div>
 
-  <div>
-    <%= f.label :ジャンル %>
-    <%= f.collection_select(:genre_id, @genres, :id, :name, {prompt: "--選択してください--"}) %>
-  </div>
+      <div class="form-group row">
+        <%= f.label :商品名, class: "col-sm-4" %>
+        <%= f.text_field :name, class: "col-sm-8" %>
+      </div>
 
-  <div>
-    <%= f.label :税抜価格 %>
-    <%= f.text_field :price %>円
-  </div>
+      <div class="form-group row">
+        <%= f.label :商品説明, class: "col-sm-4" %>
+        <%= f.text_area :description, class: "col-sm-8" %>
+      </div>
 
-  <div>
-    <%= f.label :販売ステータス %>
-    <%= f.radio_button :sales_status, :true %>販売中
-    <%= f.radio_button :sales_status, :false %>販売停止中
-  </div>
+      <div class="form-group row">
+        <%= f.label :ジャンル, class: "col-sm-4" %>
+        <%= f.collection_select(:genre_id, @genres, :id, :name, {prompt: "--選択してください--"}, class: "col-sm-8") %>
+      </div>
 
-  <div>
-    <%= f.submit "新規登録" %>
+      <div class="form-group row">
+        <%= f.label :税抜価格, class: "col-sm-4" %>
+        <%= f.text_field :price, class: "col-sm-7" %>
+        <%= f.label :円, class: "col-sm-1" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :販売ステータス, class: "ml-3" %>
+        <div class="form-check ml-4">
+          <%= f.radio_button :sales_status, :true %>販売中
+          <%= f.radio_button :sales_status, :false %>販売停止中
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.submit "新規登録", class: "btn btn-primary mt-3 mx-auto" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

@@ -27,7 +27,7 @@ class Admin::OrdersController < ApplicationController
        end
 		   redirect_to admin_top_path(@order)
 		else
-		   render "show"
+		   redirect_to admin_order_path(@order)
 		end
   end
 
