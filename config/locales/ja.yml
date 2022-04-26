@@ -14,7 +14,7 @@
         making_status:
           cannot_be_produced: "制作不可"
           waiting_for_production: "制作待ち"
-          seisakutyuu: "制作中"
+          producing: "制作中"
           production_completed: "制作完了"
           
             

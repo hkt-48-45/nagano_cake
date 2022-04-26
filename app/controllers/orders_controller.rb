@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
+  before_action :correct_order, only: [:show]
+  before_action :authenticate_customer!
 
   def index
     @orders = current_customer.orders.all
   end
 
   def show
-    @order = Order.find(params[:id])
     @order_details = @order.order_details.all
     @total_price = @order_details.sum{|order_detail|order_detail.item.price * order_detail.amount * 1.1}
   end
@@ -65,5 +66,12 @@ class OrdersController < ApplicationController
   private
   def order_params
     params.require(:order).permit(:post_number, :address, :name, :payment_method, :customer_id, :shipping_cost, :total_payment, :status)
+  end
+
+  def correct_order
+    @order = Order.find(params[:id])
+    if current_customer != @order.customer
+      redirect_to orders_path
+    end
   end
 end

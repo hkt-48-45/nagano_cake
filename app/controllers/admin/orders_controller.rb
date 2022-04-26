@@ -4,6 +4,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def show
+    
     @order = Order.find(params[:id])
     puts "————————"
     puts @order_details.inspect
@@ -13,9 +14,17 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
+    
     @order = Order.find(params[:id])
+    @order_details = @order.order_details
 		if @order.update(order_params)
 		   flash[:success] = "注文ステータスを変更しました"
+  	   if @order.status == "payment_confirmation"
+        @order_details.each do |order_detail|
+         order_detail.making_status = "waiting_for_production"
+         order_detail.save
+        end
+       end
 		   redirect_to admin_top_path(@order)
 		else
 		   render "show"

@@ -49,15 +49,15 @@
 
 
       <div class="form-group">
-        <%= f.submit "編集内容を保存する", class: 'btn btn-secondary' %>
+        <%= f.submit "編集内容を保存する", class: "btn btn-primary mt-3 mx-auto" %>
       </div>
 
-      <div class="field">
-        <%= link_to "退会する", withdraw_confirm_path %>
+      <div class="field ">
+        <%= link_to "退会する", withdraw_confirm_path, class: "btn btn-danger" %>
       </div>
-
-      <div class="field">
-        <%= link_to "戻る", customer_path(current_customer) %>
+      
+      <div class="field ">
+        <%= link_to "戻る", customer_path(current_customer), class: "btn btn-info" %>
       </div>
 
     <% end %>
