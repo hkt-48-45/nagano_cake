@@ -42,4 +42,12 @@ end
     genre_id: 1,
 
   )
-  item.image.attach(io: File.open(Rails.root.join('app/assets/images/no_image.jpg')), filename: 'default.jpg')
+  item.image.attach(io: File.open(Rails.root.join('app/assets/images/ケーキ3.jpg')), filename: 'default.jpg')
+
+  item2 = Item.create!(
+    name: "チーズケーキ",
+    description: "ほんのり甘酸っぱい　チーズケーキ",
+    price: "450",
+    genre_id: 1,
+  )
+  item2.image.attach(io: File.open(Rails.root.join('app/assets/images/20130625125049.jpg')), filename: 'default.jpg')
