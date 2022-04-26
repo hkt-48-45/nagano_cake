@@ -23,10 +23,9 @@ class OrdersController < ApplicationController
     @total_price = @cart_items.sum{|cart_item|cart_item.item.price * cart_item.amount * 1.1}
     @order.shipping_cost = 800
     @order.total_payment = @total_price + @order.shipping_cost
-    # 上手く反映されない
-    # @order.status = 0
 
-    # ご自身の住所、登録済住所、新しいお届け先で場合分けs
+
+    # ご自身の住所、登録済住所、新しいお届け先で場合分け
     if  params[:order][:address_s] == "0"
       @order.post_number = current_customer.post_number
       @order.address = current_customer.address
